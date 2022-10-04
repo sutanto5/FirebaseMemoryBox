@@ -14,10 +14,10 @@
         android:theme="@style/Theme.MemoryBox"
         tools:targetApi="31">
         <activity
-            android:name=".SelectAction"
+            android:name=".SelectActionActivity"
             android:exported="false" />
         <activity
-            android:name=".AddMemory"
+            android:name=".AddMemoryActivity"
             android:exported="false" />
         <activity
             android:name=".SignInActivity"
