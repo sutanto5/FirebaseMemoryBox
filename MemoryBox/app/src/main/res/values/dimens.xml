@@ -4,6 +4,6 @@
     <dimen name = "memEditTextWidth">200dp</dimen>
     <dimen name = "spinnerHeight">400dp</dimen>
     <dimen name = "padding">10dp</dimen>
-    <dimen name = "fontRegular">serif.ttf</dimen>
+    <dimen name = "fontRegular">20dp</dimen>
     <dimen name = "margin">40dp</dimen>
 </resources>
