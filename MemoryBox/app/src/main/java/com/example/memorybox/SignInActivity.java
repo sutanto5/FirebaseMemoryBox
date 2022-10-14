@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuthEmailException;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 
 public class SignInActivity extends AppCompatActivity  {
 
@@ -87,15 +88,6 @@ public class SignInActivity extends AppCompatActivity  {
                                 startActivity(intent);
                             }
                             else {
-                                // if sign up fails, display a message to the user along with the exception from firebase auth
-                                Log.d(TAG, "Sign up failed for " + userName + " " + password +
-                                        " because of \n"+ task.getResult());
-
-                            }
-                        }
-                    });
-        }
-        else {
    /*
    This prevents the app from CRASHING when the user enters bad items
    (duplicate email or badly formatted email most likely)
@@ -104,28 +96,33 @@ public class SignInActivity extends AppCompatActivity  {
 
     */
 
-            try {
-                throw task.getException();
-            } catch (FirebaseAuthInvalidCredentialsException e) {
-                // poorly formatted email address
-                Toast.makeText(SignInActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "Sign up failed for " + userName + " " + password + e.getMessage());
-            } catch (FirebaseAuthEmailException e) {
-                // duplicate email used
-                Toast.makeText(SignInActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "Sign up failed for " + userName + " " + password + e.getMessage());
-            } catch (Exception e) {
-                Toast.makeText(SignInActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "Sign up failed for " + userName + " " + password + e.getMessage());
-            }
+                                try {
+                                    throw task.getException();
+                                } catch (FirebaseAuthInvalidCredentialsException e) {
+                                    // poorly formatted email address
+                                    Toast.makeText(SignInActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Log.d(TAG, "Sign up failed for " + userName + " " + password + e.getMessage());
+                                } catch (FirebaseAuthEmailException e) {
+                                    // duplicate email used
+                                    Toast.makeText(SignInActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Log.d(TAG, "Sign up failed for " + userName + " " + password + e.getMessage());
+                                } catch (Exception e) {
+                                    Toast.makeText(SignInActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Log.d(TAG, "Sign up failed for " + userName + " " + password + e.getMessage());
+                                }
 
 
-            // this log message will tell the name of the exception.  If you want to add this to the catch
-            // statement above, then just add another catch above the generic one at the end
+                                // this log message will tell the name of the exception.  If you want to add this to the catch
+                                // statement above, then just add another catch above the generic one at the end
 
-            Log.d(TAG, "Sign up failed for " + userName + " " + password +
-                    " because of \n"+ task.getException());
+                                Log.d(TAG, "Sign up failed for " + userName + " " + password +
+                                        " because of \n"+ task.getException());
+                            }
+
+                        }
+                    });
         }
+
 
 
     }
@@ -153,11 +150,37 @@ public class SignInActivity extends AppCompatActivity  {
                                 startActivity(intent);
                             }
                             else {
-                                // if log in fails, display a message to the user along with the exception from firebase auth
-                                Log.d(TAG, "Log in failed for " + userName + " " + password +
-                                        " because of \n"+ task.toString());
+    /*
+   This notifies the user of WHY they couldn't log in
+
+   https://stackoverflow.com/questions/37859582/how-to-catch-a-firebase-auth-specific-exceptions
+
+    */
+
+                                try {
+                                    throw task.getException();
+                                } catch (FirebaseAuthInvalidCredentialsException e) {
+                                    // wrong password
+                                    Toast.makeText(SignInActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Log.d(TAG, "Log in failed for " + userName + " " + password + e.getMessage());
+                                } catch (FirebaseAuthInvalidUserException e) {
+                                    // wrong email, no user found with this email
+                                    Toast.makeText(SignInActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Log.d(TAG, "Log in failed for " + userName + " " + password + e.getMessage());
+                                } catch (Exception e) {
+                                    Toast.makeText(SignInActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Log.d(TAG, "Log in failed for " + userName + " " + password + e.getMessage());
+                                }
                             }
+                            // this log message will tell the name of the exception.  If you want to add this to the catch
+                            // statement above, then just add another catch above the generic one at the end
+
+                            Log.d(TAG, "Log in failed for " + userName + " " + password +
+                                    " because of \n"+ task.getException());
                         }
+
+
+
                     });
 
 
@@ -197,6 +220,7 @@ public class SignInActivity extends AppCompatActivity  {
         }
 
     }
+
 
     /**
      * This method accepts the email the user wants to submit for FirebaseAuth
