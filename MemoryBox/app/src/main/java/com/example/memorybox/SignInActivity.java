@@ -30,7 +30,7 @@ public class SignInActivity extends AppCompatActivity  {
     public static FirebaseHelper firebaseHelper;
 
     // Use the same TAG all the time for Log statements. Feel free to change the value of TAG
-    public final String TAG = "Denna";
+    public final String TAG = "Sutanto";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,25 @@ public class SignInActivity extends AppCompatActivity  {
         userNameET = findViewById(R.id.userNameEditText);
         passwordET = findViewById(R.id.passwordEditText);
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        updateUI();
+    }
+
+
+    public void updateUI() {
+        // if the user is already logged in, then they bypass this screen
+        Log.d(TAG, "inside updateUI: " + firebaseHelper.getmAuth().getUid());
+        if (firebaseHelper.getmAuth().getUid() != null) {
+            firebaseHelper.attachReadDataToUser();
+            Intent intent = new Intent(SignInActivity.this, SelectActionActivity.class);
+            startActivity(intent);
+        }
+    }
+
 
     /**
      * Method first checks if the input is valid.  If it meets the screening criteria from
@@ -79,6 +98,8 @@ public class SignInActivity extends AppCompatActivity  {
                                 // Sign up successful, update UI with the currently signed in user's info
                                 firebaseHelper.updateUid(firebaseHelper.getmAuth().getUid());
                                 Log.d(TAG, userName + " created and logged in");
+                                firebaseHelper.addUserToFirestore(userName, firebaseHelper.getmAuth().getUid());
+                                firebaseHelper.attachReadDataToUser();
 
                                 // we will implement this later
                                 // updateIfLoggedIn();
@@ -139,12 +160,13 @@ public class SignInActivity extends AppCompatActivity  {
                             if (task.isSuccessful()){
                                 // Sign in success, update currently signed in user's info
                                 firebaseHelper.updateUid(firebaseHelper.getmAuth().getUid());
+                                firebaseHelper.attachReadDataToUser();
 
                                 // we will implement this later
                                 // updateIfLoggedIn();
                                 // firebaseHelper.attachReadDataToUser();
-
                                 Log.d(TAG, userName + " logged in");
+
 
                                 Intent intent = new Intent(SignInActivity.this, SelectActionActivity.class);
                                 startActivity(intent);
