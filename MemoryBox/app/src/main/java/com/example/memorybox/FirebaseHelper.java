@@ -44,7 +44,7 @@ import java.util.concurrent.Executor;
  * in many places.  This is MUCH more efficient and less error prone.
  */
 public class FirebaseHelper {
-    public final String TAG = "Denna";
+    public final String TAG = "Sutanto";
     private static String uid = null;      // var will be updated for currently signed in user
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -66,6 +66,10 @@ public class FirebaseHelper {
         this.uid = null;
     }
 
+    public void updateUid(String uid) {
+        this.uid = uid;
+    }
+
 
     public void attachReadDataToUser() {
         // This is necessary to avoid the issues we ran into with data displaying before it
@@ -84,6 +88,9 @@ public class FirebaseHelper {
             Log.d(TAG, "No one logged in");
         }
     }
+
+
+
 
 
     public void addUserToFirestore(String name, String newUID) {

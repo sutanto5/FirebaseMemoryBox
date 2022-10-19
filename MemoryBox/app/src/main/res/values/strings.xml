@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">MemoryBox</string>
+
+    <string-array name="memoryRating">
+        <item>Amazing</item>
+        <item>Ok</item>
+        <item>Sucky</item>
+
+
+    </string-array>
 </resources>

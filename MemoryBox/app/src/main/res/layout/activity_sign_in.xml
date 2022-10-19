@@ -37,7 +37,7 @@
         android:id="@+id/signUpButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="368dp"
+        android:layout_marginTop="300dp"
         android:onClick="signUpClicked"
         android:text="Sign Up"
         app:layout_constraintEnd_toEndOf="parent"

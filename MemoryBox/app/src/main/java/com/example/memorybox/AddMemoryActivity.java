@@ -38,6 +38,10 @@ public class AddMemoryActivity extends AppCompatActivity implements AdapterView.
 
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+
+        memoryName = findViewById(R.id.memNameEditText);
+        memoryDesc = findViewById(R.id.memoryDescEditText);
+
     }
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -73,6 +77,8 @@ public class AddMemoryActivity extends AppCompatActivity implements AdapterView.
         memoryName.setText("");
         memoryDesc.setText("");
     }
+
+
 
 
 
