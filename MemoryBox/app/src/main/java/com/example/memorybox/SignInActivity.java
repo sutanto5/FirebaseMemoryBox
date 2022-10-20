@@ -44,14 +44,6 @@ public class SignInActivity extends AppCompatActivity  {
         passwordET = findViewById(R.id.passwordEditText);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        updateUI();
-    }
-
-
     public void updateUI() {
         // if the user is already logged in, then they bypass this screen
         Log.d(TAG, "inside updateUI: " + firebaseHelper.getmAuth().getUid());
@@ -60,6 +52,13 @@ public class SignInActivity extends AppCompatActivity  {
             Intent intent = new Intent(SignInActivity.this, SelectActionActivity.class);
             startActivity(intent);
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        updateUI();
     }
 
 

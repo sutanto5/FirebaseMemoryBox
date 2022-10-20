@@ -17,14 +17,17 @@ public class SelectActionActivity extends AppCompatActivity {
     }
 
     public void showMemories(View view) {
-
+        Intent intent = new Intent(SelectActionActivity.this, EditMemoryActivity.class);
+        startActivity(intent);
     }
 
+    //Crashes
     public void addMemories(View view) {
         Intent intent = new Intent(SelectActionActivity.this, AddMemoryActivity.class);
         startActivity(intent);
     }
 
+    //working
     public void logOutClicked(View view) {
         SignInActivity.firebaseHelper.logOutUser();
         Log.i(TAG, "user logged out");
